@@ -139,6 +139,8 @@ nav h1 a {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
+  /*display: grid;
+  grid-template-columns: auto;*/
 }
 #restaurants-list li {
   background-color: #fff;
@@ -149,6 +151,8 @@ nav h1 a {
   padding: 25px 30px 25px;
   text-align: left;
   width: 270px;
+  justify-self: center;
+  margin: auto;
 }
 #restaurants-list .restaurant-img {
   background-color: #ccc;
