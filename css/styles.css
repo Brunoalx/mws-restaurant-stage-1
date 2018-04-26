@@ -265,7 +265,7 @@ nav h1 a {
 }
 #reviews-list li {
   background-color: #fff;
-    border: 2px solid #f3f3f3;
+  border: 2px solid #f3f3f3;
   display: block;
   list-style-type: none;
   margin: 0 0 30px;
@@ -300,4 +300,22 @@ nav h1 a {
 	  margin-left: auto;
 	  margin-right: auto;
     }
+}
+
+@media screen and (min-width: 500px){
+  .inside #map-container {
+    background: blue none repeat scroll 0 0;
+    height: 87%;
+    position: fixed;
+    right: 0;
+    top: 132px;
+    width: 40%;
+  }
+  .inside #map {
+    background-color: #ccc;
+    height: 100%;
+    width: 100%;
+  }
+  #restaurant-container, #reviews-container {
+	width: 60%;
 }
