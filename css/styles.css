@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0 0 20px;
 }
-article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, breadcrumb {
 	display: block;
 }
 #maincontent {
@@ -66,12 +66,13 @@ nav h1 a {
   text-transform: uppercase;
 }
 #breadcrumb {
-    padding: 10px 40px 16px;
+    padding: 10px 0px 16px;
     list-style: none;
     background-color: #eee;
     font-size: 17px;
     margin: 0;
-    width: calc(50% - 80px);
+    /*width: calc(50% - 80px);*/
+	width: 100%;
 }
 
 /* Display list items side by side */
@@ -189,13 +190,13 @@ nav h1 a {
 }
 
 /* ====================== Restaurant Details ====================== */
-/*.inside header {
-  position: fixed;
+.inside header {
+  /*position: fixed;*/
   top: 0;
   width: 100%;
   z-index: 1000;
 }
-.inside #map-container {
+/*.inside #map-container {
   background: blue none repeat scroll 0 0;
   height: 87%;
   position: fixed;
