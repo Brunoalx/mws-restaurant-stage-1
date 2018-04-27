@@ -57,7 +57,23 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  
+  var wid = screen.width;
+  if (wid > 834) {
+    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  } else { 
+    image.src = DBHelper.imageUrlForRestMini(restaurant);
+  }
+  
+  window.onresize = function () {
+    if (window.innerWidth > 834) {
+        image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    } else {
+        image.src = DBHelper.imageUrlForRestMini(restaurant);
+    }
+}
+  
+  
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
