@@ -301,8 +301,7 @@ nav h1 a {
 	  margin-right: auto;
     }
 	.inside #map-container {
-      /*right: 100px;*/
-	  /*calc(200px / 2);*/
+      right: calc((100vw - 1200px) / 2);
     }
 }
 
@@ -318,7 +317,6 @@ nav h1 a {
     background: blue none repeat scroll 0 0;
     height: calc(100% - 132px);
     position: fixed;
-    right: calc((100vw - 1200px) / 2);
     top: 132px;
     width: 40%;
 	max-width: 480px;
@@ -339,3 +337,9 @@ nav h1 a {
 	padding: 25px 0 25px 0;
   }
 }
+
+@media screen and (min-width: 500px) and (max-width: 1200px){
+  .inside #map-container {
+    right: 0;
+  }
+}  
