@@ -225,7 +225,11 @@ nav h1 a {
   line-height: 1.1;
 }
 #restaurant-img {
-	width: 100%;
+	width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0 10px;
 }
 #restaurant-address {
   font-size: 12pt;
