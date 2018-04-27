@@ -62,14 +62,14 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (wid > 834) {
     image.src = DBHelper.imageUrlForRestaurant(restaurant);
   } else { 
-    image.src = DBHelper.imageUrlForRestMini(restaurant);
+    image.src = DBHelper.imageUrlForRestHalf(restaurant);
   }
   
   window.onresize = function () {
     if (window.innerWidth > 834) {
         image.src = DBHelper.imageUrlForRestaurant(restaurant);
     } else {
-        image.src = DBHelper.imageUrlForRestMini(restaurant);
+        image.src = DBHelper.imageUrlForRestHalf(restaurant);
     }
 }
   

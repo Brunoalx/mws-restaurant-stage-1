@@ -156,9 +156,11 @@ class DBHelper {
     return (`/img_mini/${restaurant.photograph}`);
   }
 
-  /**
-   * Map marker for a restaurant.
-   */
+  static imageUrlForRestHalf(restaurant) {
+    return (`/img_half/${restaurant.photograph}`);
+  }
+  
+  
   static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({
       position: restaurant.latlng,
