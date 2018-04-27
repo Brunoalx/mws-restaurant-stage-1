@@ -295,10 +295,14 @@ nav h1 a {
 	}
 }
 @media screen and (min-width: 1200px){
-	body {
+	body{
       max-width: 1200px;
 	  margin-left: auto;
 	  margin-right: auto;
+    }
+	.inside #map-container {
+      /*right: 100px;*/
+	  /*calc(200px / 2);*/
     }
 }
 
@@ -314,9 +318,10 @@ nav h1 a {
     background: blue none repeat scroll 0 0;
     height: calc(100% - 132px);
     position: fixed;
-    right: 0;
+    right: calc((100vw - 1200px) / 2);
     top: 132px;
     width: 40%;
+	max-width: 480px;
   }
   .inside #map {
     background-color: #ccc;
@@ -325,6 +330,7 @@ nav h1 a {
   }
   #restaurant-container, #reviews-container {
 	width: 60%;
+	max-width: 720px;
   }
   .inside #footer {
     bottom: 0;
