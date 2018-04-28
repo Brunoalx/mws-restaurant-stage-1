@@ -47,5 +47,24 @@
   </footer>
 
 </body>
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('sw.js');
+  }
+
+  /*navigator.serviceWorker.register('sw.js').then(function(reg){
+    console.log('Yay!');
+  }).catch(function(err) {
+    console.log('Boo!')
+  });*/
+  
+  /*fetch('/foo').then(function(response){
+	return response.json();
+  }).then(function(data) {
+	console.log(data);
+  }).catch(function() {
+    console.log('It failed');
+  })*/
+</script>
 
 </html>
