@@ -166,7 +166,7 @@ nav h1 a {
   width: 100%;
   height: auto;
 }
-#restaurants-list li h1 {
+#restaurants-list li h2 {
   color: #b56000;
   font-family: Arial,sans-serif;
   font-size: 14pt;
