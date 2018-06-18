@@ -39,8 +39,10 @@ dbPromise.then(function(db) {
   	const store = tx.objectStore('objs')
   	rests.forEach(function(rest) {
     	store.put(rest);
-  	});
+  	});return tx.complete;
+    
   };
+  
   xhr.send();
 
   /*const tx = db.transaction('objs', 'readwrite');
@@ -48,7 +50,7 @@ dbPromise.then(function(db) {
   rests.forEach(function(rest) {
     store.put(rest);
   });*/
-  return tx.complete;
+  
 });
 
 

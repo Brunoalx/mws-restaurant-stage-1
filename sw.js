@@ -4,7 +4,7 @@ self.addEventListener('install', function(event){
 			return cache.addAll([
 				'/',
 				'/restaurant.html',
-				'http://localhost:1337/restaurants',
+				/*'http://localhost:1337/restaurants',*/
 				'css/styles.css',
 				'img/1.jpg',
 				'img/2.jpg',
@@ -40,6 +40,7 @@ self.addEventListener('install', function(event){
 				'js/main.js',
 				'js/restaurant_info.js',
 				'js/restdb.js'
+				
 			]);
 		})
 	);	
