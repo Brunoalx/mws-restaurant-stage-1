@@ -58,7 +58,7 @@ dbPromise.then(function(db){
   const tx = db.transaction('objs', 'readonly');
   const store = tx.objectStore('objs');
   return store.getAll();
-}).then(function(a){console.log(a)});
+})/*.then(function(a){console.log(a)});
 
 /*const rest = JSON.parse(xhr.responseText);
 console.log(rest);

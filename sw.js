@@ -39,8 +39,8 @@ self.addEventListener('install', function(event){
 				'js/dbhelper.js',
 				'js/main.js',
 				'js/restaurant_info.js',
-				'js/restdb.js'
-				
+				'js/restdb.js',
+				'idb/lib/idb.js',				
 			]);
 		})
 	);	
@@ -49,8 +49,9 @@ self.addEventListener('install', function(event){
 self.addEventListener('fetch', function(event){
 	event.respondWith(
 		caches.match(event.request).then(function(response){
-			if (response) return response;
-			return fetch(event.request);
+			return response || if (event.request.url == 'http://localhost:1337/restaurants')
+				{console.log('boa')}
+			;/*fetch(event.request);*/
 		})
 	);
 });
