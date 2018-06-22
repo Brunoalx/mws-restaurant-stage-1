@@ -46,15 +46,53 @@ self.addEventListener('install', function(event){
 	);	
 });
 
-self.addEventListener('fetch', function(event){
+/*self.addEventListener('fetch', function(event){
 	event.respondWith(
 		caches.match(event.request).then(function(response){
-			return response || if (event.request.url == 'http://localhost:1337/restaurants')
+			return response || if(event.request.url = "http://localhost:1337/restaurants")
 				{console.log('boa')}
 			;/*fetch(event.request);*/
-		})
+		/*})
 	);
-});
+});*/
+
+/*const dbPromise = idb.open('restaurants-db', 1, upgradeDB => {
+	upgradeDB.createObjectStore('objs', {
+		keyPath: 'id'
+	});
+});*/
+
+//Fetch Event
+self.addEventListener('fetch', (event) => {
+var requestUrl = new URL(event.request.url);
+
+    if (requestUrl.origin !== location.origin) {
+        //...
+
+        if(event.request.url.endsWith('/restaurants')){
+          event.respondWith(
+
+              dbPromise.then((db) => {
+                  var tx = db.transaction('objs', 'readonly');
+                  var store = tx.objectStore('objs');
+                  return store.getAll();
+              }).then(function(items) {
+                  return new Response(JSON.stringify(items),  { "status" : 200 , "statusText" : "MyCustomResponse!" })
+              })
+
+          )
+
+        } 
+
+        //...
+    } else { 
+    	event.respondWith(
+		caches.match(event.request).then(function(response){
+			return response;})
+    	)
+    }
+
+ });
 
 /*self.addEventListener('fetch', function(event) {
   if (event.request.url.indexOf('https://maps.googleapi.com/js') == 0) {
