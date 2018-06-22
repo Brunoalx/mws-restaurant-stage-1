@@ -1,3 +1,5 @@
+importScripts('idb/lib/idb.js');
+
 self.addEventListener('install', function(event){
 	event.waitUntil(
 		caches.open('cacheRest').then(function(cache){
@@ -63,7 +65,13 @@ self.addEventListener('install', function(event){
 });*/
 
 //Fetch Event
+
 self.addEventListener('fetch', (event) => {
+const dbPromise = idb.open('restaurants-db', 1, upgradeDB => {
+	upgradeDB.createObjectStore('objs', {
+		keyPath: 'id'
+	});
+});
 var requestUrl = new URL(event.request.url);
 
     if (requestUrl.origin !== location.origin) {
