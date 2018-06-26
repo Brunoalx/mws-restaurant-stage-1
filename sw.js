@@ -48,15 +48,13 @@ self.addEventListener('install', function(event){
 	);	
 });
 
-/*self.addEventListener('fetch', function(event){
+self.addEventListener('fetch', function(event){
 	event.respondWith(
 		caches.match(event.request).then(function(response){
-			return response || if(event.request.url = "http://localhost:1337/restaurants")
-				{console.log('boa')}
-			;/*fetch(event.request);*/
-		/*})
+			return response || fetch(event.request);
+		})
 	);
-});*/
+});
 
 /*const dbPromise = idb.open('restaurants-db', 1, upgradeDB => {
 	upgradeDB.createObjectStore('objs', {
@@ -66,7 +64,7 @@ self.addEventListener('install', function(event){
 
 //Fetch Event
 
-self.addEventListener('fetch', (event) => {
+/*self.addEventListener('fetch', (event) => {
 const dbPromise = idb.open('restaurants-db', 1, upgradeDB => {
 	upgradeDB.createObjectStore('objs', {
 		keyPath: 'id'
