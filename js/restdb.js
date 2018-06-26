@@ -9,6 +9,8 @@ const dbPromise = idb.open('restaurants-db', 1, upgradeDB => {
 
 
 
+
+
 /*let rests = function () {
 	let xhr = new XMLHttpRequest();
 	xhr.open('GET', DBHelper.DATABASE_URL);
@@ -51,7 +53,16 @@ dbPromise.then(function(db) {
     store.put(rest);
   });*/
   
-});
+}); 
+
+/*Count objs in indexedDB*/
+
+const count = dbPromise.then(db => {
+  const tx = db.transaction('objs', 'readonly');
+  const store = tx.objectStore('objs');
+  return store.count()
+}).then(obj => console.log(obj));
+
 
 
 dbPromise.then(function(db){
