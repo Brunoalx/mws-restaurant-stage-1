@@ -57,15 +57,38 @@ dbPromise.then(function(db) {
 
 /*Count objs in indexedDB*/
 
-const count = dbPromise.then(db => {
+function count() {dbPromise.then(db => {
   const tx = db.transaction('objs', 'readonly');
   const store = tx.objectStore('objs');
   return store.count()
-}).then(obj => console.log(obj));
+}).then(obj => {bebe(obj)});
+};
 
 
 
-dbPromise.then(function(db){
+function bebe(x) {
+  var lerOuNaoDB = 5;
+  if (x === 0) {
+    lerOuNaoDB = 0;
+    console.log('não há cá nada')
+  } else {
+    lerOuNaoDB = 1;
+    console.log('Já cá estão')
+  }
+  console.log(lerOuNaoDB);
+};
+
+
+
+
+
+
+
+
+
+
+
+/*dbPromise.then(function(db){
   const tx = db.transaction('objs', 'readonly');
   const store = tx.objectStore('objs');
   return store.getAll();
