@@ -185,14 +185,14 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.id}.jpg`);
+    return (`/img/${restaurant.id}.webp`);
   }
   static imageUrlForRestMini(restaurant) {
-    return (`/img_mini/${restaurant.id}.jpg`);
+    return (`/img_mini/${restaurant.id}.webp`);
   }
 
   static imageUrlForRestHalf(restaurant) {
-    return (`/img_half/${restaurant.id}.jpg`);
+    return (`/img_half/${restaurant.id}.webp`);
   }
   
   
