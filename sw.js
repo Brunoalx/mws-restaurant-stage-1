@@ -1,4 +1,4 @@
-importScripts('idb/lib/idb.js');
+
 
 self.addEventListener('install', function(event){
 	event.waitUntil(
