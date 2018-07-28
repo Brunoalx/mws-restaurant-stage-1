@@ -156,7 +156,26 @@ createReviewHTML = (review) => {
   li.appendChild(name);
 
   const date = document.createElement('p');
-  date.innerHTML = review.date;
+  //Date = Date.getUnixTime(review.createdAt);
+  var d = new Date(review.createdAt);
+  var dia = d.getDate();
+  
+  var month = new Array();
+    month[0] = "January";
+    month[1] = "February";
+    month[2] = "March";
+    month[3] = "April";
+    month[4] = "May";
+    month[5] = "June";
+    month[6] = "July";
+    month[7] = "August";
+    month[8] = "September";
+    month[9] = "October";
+    month[10] = "November";
+    month[11] = "December";
+  var mes = month[d.getMonth()];
+  var ano = d.getFullYear();
+  date.innerHTML = `${mes} ${dia}, ${ano}`; //alterar a data
   li.appendChild(date);
 
   const rating = document.createElement('p');
@@ -169,6 +188,8 @@ createReviewHTML = (review) => {
 
   return li;
 }
+
+
 
 /**
  * Add restaurant name to the breadcrumb navigation menu
