@@ -3,6 +3,9 @@ const dbPromise = idb.open('restaurants-db', 1, upgradeDB => {
   upgradeDB.createObjectStore('objs', {
     keyPath: 'id'
   });
+  upgradeDB.createObjectStore('revs', {
+    keyPath: 'id'
+  });
 });
 
 /**
@@ -16,8 +19,53 @@ class DBHelper {
    */
   static get DATABASE_URL() {
     const port = 1337 // Change this to your server port
-    return `http://localhost:${port}/restaurants`;
+    return `http://localhost:${port}/`;
   }
+
+  static fetchReviews (callback){
+    dbPromise.then(db => {
+      const tx = db.transaction('revs', 'readonly');
+      const store = tx.objectStore('revs');
+      return store.count()
+      }).then(rev => {
+        
+        if (rev === 0) { //Faz de conta que está sempre vazia. Reverter para === depois.
+          
+
+          let xhr = new XMLHttpRequest();
+          xhr.open('GET', DBHelper.DATABASE_URL+"reviews"); //   /?restaurant_id="+id
+          xhr.onload = () => {
+            if (xhr.status === 200) { // Got a success response from server!
+              const reviews = JSON.parse(xhr.responseText);
+              console.log(reviews);
+              /*DB add data*/
+              dbPromise.then(function(db) {
+                const tx = db.transaction('revs', 'readwrite');
+                const store = tx.objectStore('revs')
+                reviews.forEach(function(review) {
+                  store.put(review);
+                });
+              return tx.complete;
+              }); 
+              console.log(reviews);
+              callback(null, reviews);
+            } else { // Oops!. Got an error from server.
+              const error = (`Request failed. Returned status of ${xhr.status}`);
+              callback(error, null);
+            }
+          };
+          xhr.send();
+        } else {
+          
+          dbPromise.then(function(db){
+            const tx = db.transaction('revs', 'readonly');
+            const store = tx.objectStore('revs');
+            return store.getAll().then(reviews => {callback(null, reviews)});  //???
+          });
+        };
+      })
+
+  };
 
   /**
    * Fetch all restaurants.
@@ -29,11 +77,12 @@ class DBHelper {
       return store.count()
       }).then(obj => {
         
-        if (obj === 0) {
+        if (obj === 0) { //Faz de conta que está sempre vazia. Reverter para === depois.
           
 
           let xhr = new XMLHttpRequest();
-          xhr.open('GET', DBHelper.DATABASE_URL);
+          console.log(DBHelper.DATABASE_URL +"restaurants/");
+          xhr.open('GET', DBHelper.DATABASE_URL +"restaurants/");
           xhr.onload = () => {
             if (xhr.status === 200) { // Got a success response from server!
               const restaurants = JSON.parse(xhr.responseText);
@@ -46,6 +95,7 @@ class DBHelper {
                   store.put(restaurant);
                 });
                 return tx.complete;
+
               }); 
               
               callback(null, restaurants);
@@ -65,6 +115,29 @@ class DBHelper {
         };
       })
   }
+
+    /**
+   * Fetch a reviews by Rest ID.
+   */
+  static fetchReviewsByRestId(id, callback) {
+    console.log(id);
+    // fetch all reviews with proper error handling.
+    DBHelper.fetchReviews((error, reviews) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        const review = reviews.filter(r => r.restaurant_id == id);
+        
+        if (review) { // Got the review
+          console.log(review);
+          callback(null, review);
+        } else { // Restaurant does not exist in the database
+          callback('No Reviews', null);
+        }
+      }
+    });
+  }
+
   
   /**
    * Fetch a restaurant by its ID.
@@ -77,6 +150,7 @@ class DBHelper {
       } else {
         const restaurant = restaurants.find(r => r.id == id);
         if (restaurant) { // Got the restaurant
+          console.log(restaurant);
           callback(null, restaurant);
         } else { // Restaurant does not exist in the database
           callback('Restaurant does not exist', null);

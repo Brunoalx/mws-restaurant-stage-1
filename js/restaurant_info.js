@@ -33,7 +33,18 @@ fetchRestaurantFromURL = (callback) => {
     error = 'No restaurant id in URL'
     callback(error, null);
   } else {
+    DBHelper.fetchReviewsByRestId(id, (error, review) => {
+
+      self.review = review;
+      console.log(review);
+      if (!review) {
+        console.error(error);
+        return;
+      }
+      //fillReviewsHTML();
+    });  
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
+      
       self.restaurant = restaurant;
       if (!restaurant) {
         console.error(error);
@@ -42,6 +53,11 @@ fetchRestaurantFromURL = (callback) => {
       fillRestaurantHTML();
       callback(null, restaurant)
     });
+    
+
+      
+      //callback(null, review)
+    
   }
 }
 
@@ -110,7 +126,8 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+fillReviewsHTML = (reviews = self.review) => {
+  console.log("Estou a ir ao fillReviewsHTML");
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
