@@ -53,6 +53,33 @@
       <div id="map"></div>
     </section>
     <!-- End map -->
+    <!-- Beginning add reviews -->
+    <section id="add-review-container">
+      <!-- Trigger/Open The Modal -->
+      <button id="myBtn">Add new review</button>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>New Review</h2>
+          <label for="reviewer">Name:</label><br>
+          <input id="reviewer" name="name" type="text"/>
+          <br><br>
+          <label for="rating">Rating:</label><br>
+          <input type="number" name="quantity" min="1" max="5"/>
+          <br><br>
+          <label for="rating">Comments:</label><br>
+          <textarea id="comments" comments="comments" type="text"></textarea>
+          <br><br>
+          <button class="submit-button" onclick="addReview()">Add Review</button>
+
+        </div>
+      </div>
+      
+    </section>
+    
+    <!-- End add reviews -->
     <!-- Beginning reviews -->
     <section id="reviews-container" tabindex=0>
       <ul id="reviews-list"></ul>
@@ -68,6 +95,9 @@
   <!-- End footer -->
 
   <!-- Beginning scripts -->
+
+  
+  </script>
   <!-- Database helpers -->
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
