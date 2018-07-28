@@ -1,12 +1,10 @@
-
-
 self.addEventListener('install', function(event){
 	event.waitUntil(
 		caches.open('cacheRest').then(function(cache){
 			return cache.addAll([
+				'/sw.js',
 				'/',
 				'/restaurant.html',
-				/*'http://localhost:1337/restaurants',*/
 				'css/styles.css',
 				'img/1.webp',
 				'img/2.webp',
@@ -18,6 +16,7 @@ self.addEventListener('install', function(event){
 				'img/8.webp',
 				'img/9.webp',
 				'img/10.webp',
+				'img/Restaurant.png',
 				'img_mini/1.webp',
 				'img_mini/2.webp',
 				'img_mini/3.webp',
@@ -41,7 +40,8 @@ self.addEventListener('install', function(event){
 				'js/dbhelper.js',
 				'js/main.js',
 				'js/restaurant_info.js',
-				'idb/lib/idb.js',				
+				'idb/lib/idb.js',
+				'/manifest.json',				
 			]);
 		})
 	);	

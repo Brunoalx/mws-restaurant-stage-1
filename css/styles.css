@@ -413,3 +413,15 @@ nav h1 a {
   width: 200px;
   height: 100px;
 }
+
+/* The Add Review Button */
+#myBtn {
+  font-weight: bold;
+  padding: 8px 15px 8px 15px;
+  background-color: #ddd;
+  color: #333;
+}
+
+#add-review-container{
+  padding:20px;
+}
