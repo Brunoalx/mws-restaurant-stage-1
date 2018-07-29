@@ -1,11 +1,15 @@
 /*DB open*/
-const dbPromise = idb.open('restaurants-db', 1, upgradeDB => {
-  upgradeDB.createObjectStore('objs', {
-    keyPath: 'id'
-  });
-  upgradeDB.createObjectStore('revs', {
-    keyPath: 'id'
-  });
+const dbPromise = idb.open('restaurants-db', 2, upgradeDB => {
+  switch (upgradeDB.oldVersion) {
+    case 0:
+      upgradeDB.createObjectStore('objs', {
+        keyPath: 'id'
+      });
+    case 1:
+      upgradeDB.createObjectStore('revs', {
+        keyPath: 'id'
+      });
+  }
 });
 
 /**

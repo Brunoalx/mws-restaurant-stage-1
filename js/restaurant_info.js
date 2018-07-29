@@ -226,6 +226,7 @@ var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+
 // When the user clicks on the button, open the modal 
 btn.onclick = function() {
     modal.style.display = "block";
@@ -242,3 +243,23 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+
+/**
+ * Store new review
+ */
+
+ function addReview() {
+  let restaurant_id = parseInt(getParameterByName('id'));
+  let name = document.getElementById('reviewer').value;
+  let d = new Date();
+  let createdAt = d.getTime();
+  let updatedAt = createdAt;
+  let rating =  document.getElementById('rating').valueAsNumber;
+  let comments = document.getElementById('comments').value;
+  const review = [restaurant_id, name, createdAt, updatedAt, rating, comments];
+  console.log(review);
+  modal.style.display = "none";
+  //modal-content.reset(); //não está a limpar
+ }
