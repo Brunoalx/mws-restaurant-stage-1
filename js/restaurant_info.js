@@ -229,7 +229,8 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal 
 btn.onclick = function() {
-    modal.style.display = "block";
+  document.getElementById('rating').value='';
+  modal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -256,10 +257,12 @@ window.onclick = function(event) {
   let d = new Date();
   let createdAt = d.getTime();
   let updatedAt = createdAt;
-  let rating =  document.getElementById('rating').valueAsNumber;
+  let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
   const review = [restaurant_id, name, createdAt, updatedAt, rating, comments];
   console.log(review);
   modal.style.display = "none";
-  //modal-content.reset(); //não está a limpar
+  document.getElementById('reviewer').value='';
+  document.getElementById('rating').value='';
+  document.getElementById('comments').value='';
  }
