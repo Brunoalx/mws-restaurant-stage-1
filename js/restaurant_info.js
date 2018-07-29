@@ -259,10 +259,31 @@ window.onclick = function(event) {
   let updatedAt = createdAt;
   let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
-  const review = [restaurant_id, name, createdAt, updatedAt, rating, comments];
-  console.log(review);
+  const newReview = [restaurant_id, name, createdAt, updatedAt, rating, comments];
+  console.log(newReview);
   modal.style.display = "none";
   document.getElementById('reviewer').value='';
   document.getElementById('rating').value='';
   document.getElementById('comments').value='';
+  checkIfOnline();
+  /*notification();*/
+
+  //Notification.requestPermission().then(function(result) {
+  //console.log(result);});
  }
+
+ function newReviewName(){
+  //Increment newReview name, to store multiple reviews
+ }
+
+  function checkIfOnline() {
+    if(navigator.onLine) { // true|false
+      console.log('online');
+    } else {
+      console.log('offline');
+      Notification.permission === "granted";
+      var notification = new Notification("Not connected - The new review wont be sent to the server until the connection is re-established");
+    }
+  }
+
+  
