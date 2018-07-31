@@ -229,7 +229,7 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal 
 btn.onclick = function() {
-  document.getElementById('rating').value='';
+  //document.getElementById('rating').value='';
   modal.style.display = "block";
 }
 
@@ -256,16 +256,33 @@ window.onclick = function(event) {
   let name = document.getElementById('reviewer').value;
   let d = new Date();
   let createdAt = d.getTime();
-  let updatedAt = createdAt;
   let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
-  const newReview = [restaurant_id, name, createdAt, updatedAt, rating, comments];
+  //Count revsDB size
+  //let numero = 
+  dbPromise.then(db => {
+    return db.transaction('revs')
+    .objectStore('revs').count();
+  }).then(num => numero = num+1);
+  console.log(numero);
+  let offline = 1;
+  const newReview = {id: numero, restaurant_id: restaurant_id, name: name, createdAt: createdAt, rating: rating, comments: comments, offline: offline};
   console.log(newReview);
   modal.style.display = "none";
   document.getElementById('reviewer').value='';
   document.getElementById('rating').value='';
   document.getElementById('comments').value='';
   checkIfOnline();
+  getReviewToDb = (newReview) => {
+    console.log("meto ou não meto");
+    dbPromise.then(db => {
+      const tx = db.transaction('revs', 'readwrite');
+      tx.objectStore('revs').put(newReview);
+      return tx.complete;
+    });
+  };
+  getReviewToDb(newReview);
+  location.reload();
   /*notification();*/
 
   //Notification.requestPermission().then(function(result) {
