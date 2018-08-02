@@ -250,8 +250,7 @@ window.onclick = function(event) {
 /**
  * Store new review
  */
-
- function addReview() {
+function addReview() {
   let restaurant_id = parseInt(getParameterByName('id'));
   let name = document.getElementById('reviewer').value;
   let d = new Date();
@@ -287,7 +286,7 @@ window.onclick = function(event) {
 
   //Notification.requestPermission().then(function(result) {
   //console.log(result);});
- }
+}
 
  function newReviewName(){
   //Increment newReview name, to store multiple reviews
@@ -298,9 +297,15 @@ window.onclick = function(event) {
       console.log('online');
     } else {
       console.log('offline');
-      Notification.permission === "granted";
-      var notification = new Notification("Not connected - The new review wont be sent to the server until the connection is re-established");
+      alert ("Not connected - The new review wont be sent to the server until the connection is re-established");
+      //Notification.permission === "granted";
+      //var notification = new Notification("Not connected - The new review wont be sent to the server until the connection is re-established");
     }
   }
 
-  
+window.addEventListener("online", onFunction);
+
+
+function onFunction() {
+    alert ("Your browser is working online.");
+}
