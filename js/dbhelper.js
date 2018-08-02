@@ -8,9 +8,11 @@ const dbPromise = idb.open('restaurants-db', 2, upgradeDB => {
     case 1:
       upgradeDB.createObjectStore('revs', {
         keyPath: 'id'
-      });
+      }).createIndex('offlineDB', 'offline', {unique: false});
   }
 });
+
+
 
 /**
  * Common database helper functions.
