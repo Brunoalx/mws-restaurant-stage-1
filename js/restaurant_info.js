@@ -258,7 +258,6 @@ function addReview() {
   let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
   //Count revsDB size
-  //let numero = 
   dbPromise.then(db => {
     return db.transaction('revs')
     .objectStore('revs').count();
@@ -309,3 +308,10 @@ window.addEventListener("online", onFunction);
 function onFunction() {
     alert ("Your browser is working online.");
 }
+
+dbPromise.then(function(db){
+  const tx = db.transaction('revs', 'readonly');
+  const store = tx.objectStore('revs');
+  const index = store.index('offlineDB');
+  return index.getAll().then(restaurant => console.log(restaurant));
+});
