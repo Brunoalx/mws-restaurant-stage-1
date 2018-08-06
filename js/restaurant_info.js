@@ -313,5 +313,5 @@ dbPromise.then(function(db){
   const tx = db.transaction('revs', 'readonly');
   const store = tx.objectStore('revs');
   const index = store.index('offlineDB');
-  return index.getAll().then(restaurant => restaurant.forEach(function(x){console.log(x)}));
+  return index.getAll().then(reviews => reviews.forEach(function(x){delete x.offline; console.log(x)}));
 });
