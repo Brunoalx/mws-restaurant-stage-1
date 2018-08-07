@@ -257,6 +257,7 @@ function addReview() {
   let updatedAt = d.getTime();
   let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
+  
   dbPromise.then(db => {
     return db.transaction('revs')
     .objectStore('revs').count();
@@ -280,6 +281,7 @@ function addReview() {
   };
   getReviewToDb(newReview);
   location.reload();
+  SendReviewToServer();
   
 }
 
@@ -305,7 +307,7 @@ function onFunction() {
 
 var url = DBHelper.DATABASE_URL+"reviews";
 
-SendReviewToServer();
+//SendReviewToServer();
 
 function SendReviewToServer() {
   dbPromise.then(function(db){
