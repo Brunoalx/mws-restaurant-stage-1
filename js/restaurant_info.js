@@ -334,7 +334,7 @@ dbPromise.then(function(db){
       console.log(idOf);
       dbPromise.then(db => {
         const tx = db.transaction('revs', 'readwrite');
-        tx.objectStore('revs').delete(1011);
+        tx.objectStore('revs').delete(idOf);
         return tx.complete;
       });  
     })
