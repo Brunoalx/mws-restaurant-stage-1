@@ -41,7 +41,7 @@ fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
-      //fillReviewsHTML();
+      fillReviewsHTML();
     });  
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
       
@@ -100,7 +100,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
   // fill reviews
-  fillReviewsHTML();
+  //fillReviewsHTML();
 }
 
 /**

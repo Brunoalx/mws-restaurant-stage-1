@@ -30,7 +30,7 @@ class DBHelper {
     return `http://localhost:${port}/`;
   }
 
-  static fetchReviews (callback){
+  static fetchReviews (id, callback){
     dbPromise.then(db => {
       const tx = db.transaction('revs', 'readonly');
       const store = tx.objectStore('revs');
@@ -41,11 +41,10 @@ class DBHelper {
           
 
           let xhr = new XMLHttpRequest();
-          xhr.open('GET', DBHelper.DATABASE_URL+"reviews"); //   /?restaurant_id="+id
+          xhr.open('GET', DBHelper.DATABASE_URL+"reviews/?restaurant_id="+id); //   /?restaurant_id="+id
           xhr.onload = () => {
             if (xhr.status === 200) { // Got a success response from server!
               const reviews = JSON.parse(xhr.responseText);
-              console.log(reviews);
               /*DB add data*/
               dbPromise.then(function(db) {
                 const tx = db.transaction('revs', 'readwrite');
@@ -89,7 +88,6 @@ class DBHelper {
           
 
           let xhr = new XMLHttpRequest();
-          console.log(DBHelper.DATABASE_URL +"restaurants/");
           xhr.open('GET', DBHelper.DATABASE_URL +"restaurants/");
           xhr.onload = () => {
             if (xhr.status === 200) { // Got a success response from server!
@@ -130,7 +128,7 @@ class DBHelper {
   static fetchReviewsByRestId(id, callback) {
     console.log(id);
     // fetch all reviews with proper error handling.
-    DBHelper.fetchReviews((error, reviews) => {
+    DBHelper.fetchReviews(id, (error, reviews) => {
       if (error) {
         callback(error, null);
       } else {
