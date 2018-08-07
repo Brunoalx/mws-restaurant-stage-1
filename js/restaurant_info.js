@@ -255,16 +255,22 @@ function addReview() {
   let name = document.getElementById('reviewer').value;
   let d = new Date();
   let createdAt = d.getTime();
+  let updatedAt = d.getTime();
   let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
+  /*dbPromise.then(db => {
+    const tx = db.transaction('revs', 'readonly');
+    const store = tx.objectStore('revs');
+    const index = store.index('restaurantRev');
+  }).then(num => numero = num+1);*/
   //Count revsDB size
   dbPromise.then(db => {
     return db.transaction('revs')
     .objectStore('revs').count();
-  }).then(num => numero = num+1);
+  }).then(num => numero = num+1000);
   console.log(numero);
   let offline = 1;
-  const newReview = {id: numero, restaurant_id: restaurant_id, name: name, createdAt: createdAt, rating: rating, comments: comments, offline: offline};
+  const newReview = {id: numero, restaurant_id: restaurant_id, name: name, createdAt: createdAt, updatedAt: updatedAt, rating: rating, comments: comments, offline: offline};
   console.log(newReview);
   modal.style.display = "none";
   document.getElementById('reviewer').value='';
@@ -280,7 +286,7 @@ function addReview() {
     });
   };
   getReviewToDb(newReview);
-  location.reload();
+  //location.reload();
   /*notification();*/
 
   //Notification.requestPermission().then(function(result) {
