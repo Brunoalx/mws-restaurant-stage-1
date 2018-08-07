@@ -305,6 +305,8 @@ function onFunction() {
 
 var url = DBHelper.DATABASE_URL+"reviews";
 
+SendReviewToServer();
+
 function SendReviewToServer() {
   dbPromise.then(function(db){
     const tx = db.transaction('revs', 'readonly');
@@ -339,7 +341,3 @@ function SendReviewToServer() {
   }));
 }
 
-if (navigator.onLine === true)
-  {
-    console.log('Ta certo')
-  }
