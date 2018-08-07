@@ -258,12 +258,6 @@ function addReview() {
   let updatedAt = d.getTime();
   let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
-  /*dbPromise.then(db => {
-    const tx = db.transaction('revs', 'readonly');
-    const store = tx.objectStore('revs');
-    const index = store.index('restaurantRev');
-  }).then(num => numero = num+1);*/
-  //Count revsDB size
   dbPromise.then(db => {
     return db.transaction('revs')
     .objectStore('revs').count();
@@ -286,7 +280,7 @@ function addReview() {
     });
   };
   getReviewToDb(newReview);
-  //location.reload();
+  location.reload();
   /*notification();*/
 
   //Notification.requestPermission().then(function(result) {
@@ -315,9 +309,24 @@ function onFunction() {
     alert ("Your browser is working online.");
 }
 
+
+var url = DBHelper.DATABASE_URL+"reviews";
+
 dbPromise.then(function(db){
   const tx = db.transaction('revs', 'readonly');
   const store = tx.objectStore('revs');
   const index = store.index('offlineDB');
-  return index.getAll().then(reviews => reviews.forEach(function(x){delete x.offline; console.log(x)}));
-});
+  return index.getAll()}).then(reviews => reviews.forEach(function(x){
+    delete x.offline;
+    delete x.id;
+    fetch(url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(x), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+        
+  }));
