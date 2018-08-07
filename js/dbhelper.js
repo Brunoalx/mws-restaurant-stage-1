@@ -34,8 +34,11 @@ class DBHelper {
     dbPromise.then(db => {
       const tx = db.transaction('revs', 'readonly');
       const store = tx.objectStore('revs');
-      return store.count()
+      const index = store.index('restaurantRev');
+      var myId = parseInt(id);
+      return index.count(myId)
       }).then(rev => {
+        
         
         if (rev === 0) { //Faz de conta que está sempre vazia. Reverter para === depois.
           
