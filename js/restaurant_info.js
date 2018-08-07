@@ -317,6 +317,8 @@ dbPromise.then(function(db){
   const store = tx.objectStore('revs');
   const index = store.index('offlineDB');
   return index.getAll()}).then(reviews => reviews.forEach(function(x){
+    var idOf = x.id;
+    
     delete x.offline;
     delete x.id;
     fetch(url, {
@@ -327,6 +329,13 @@ dbPromise.then(function(db){
       }
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
-        
+    .then(response => {
+      console.log('Success:', response);
+      console.log(idOf);
+      dbPromise.then(db => {
+        const tx = db.transaction('revs', 'readwrite');
+        tx.objectStore('revs').delete(1011);
+        return tx.complete;
+      });  
+    })
   }));
