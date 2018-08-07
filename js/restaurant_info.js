@@ -99,8 +99,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
-  // fill reviews
-  //fillReviewsHTML();
+  
 }
 
 /**
@@ -281,15 +280,10 @@ function addReview() {
   };
   getReviewToDb(newReview);
   location.reload();
-  /*notification();*/
-
-  //Notification.requestPermission().then(function(result) {
-  //console.log(result);});
+  
 }
 
- function newReviewName(){
-  //Increment newReview name, to store multiple reviews
- }
+
 
   function checkIfOnline() {
     if(navigator.onLine) { // true|false
@@ -297,8 +291,6 @@ function addReview() {
     } else {
       console.log('offline');
       alert ("Not connected - The new review wont be sent to the server until the connection is re-established");
-      //Notification.permission === "granted";
-      //var notification = new Notification("Not connected - The new review wont be sent to the server until the connection is re-established");
     }
   }
 
@@ -318,7 +310,6 @@ dbPromise.then(function(db){
   const index = store.index('offlineDB');
   return index.getAll()}).then(reviews => reviews.forEach(function(x){
     var idOf = x.id;
-    
     delete x.offline;
     delete x.id;
     fetch(url, {
@@ -327,15 +318,20 @@ dbPromise.then(function(db){
       headers:{
         'Content-Type': 'application/json'
       }
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {
-      console.log('Success:', response);
-      console.log(idOf);
-      dbPromise.then(db => {
-        const tx = db.transaction('revs', 'readwrite');
-        tx.objectStore('revs').delete(idOf);
+    }).then(response => { 
+      if (response.ok) {
+        response.json();
+        console.log(idOf);
+        dbPromise.then(db => {
+          const tx = db.transaction('revs', 'readwrite');
+          tx.objectStore('revs').delete(idOf);
         return tx.complete;
+
       });  
+      } else {
+        return Promise.reject('something went wrong!')
+      }
     })
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
   }));
