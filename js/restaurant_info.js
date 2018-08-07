@@ -299,39 +299,47 @@ window.addEventListener("online", onFunction);
 
 function onFunction() {
     alert ("Your browser is working online.");
+    SendReviewToServer();
 }
 
 
 var url = DBHelper.DATABASE_URL+"reviews";
 
-dbPromise.then(function(db){
-  const tx = db.transaction('revs', 'readonly');
-  const store = tx.objectStore('revs');
-  const index = store.index('offlineDB');
-  return index.getAll()}).then(reviews => reviews.forEach(function(x){
-    var idOf = x.id;
-    delete x.offline;
-    delete x.id;
-    fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(x), // data can be `string` or {object}!
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(response => { 
-      if (response.ok) {
-        response.json();
-        console.log(idOf);
-        dbPromise.then(db => {
-          const tx = db.transaction('revs', 'readwrite');
-          tx.objectStore('revs').delete(idOf);
-        return tx.complete;
+function SendReviewToServer() {
+  dbPromise.then(function(db){
+    const tx = db.transaction('revs', 'readonly');
+    const store = tx.objectStore('revs');
+    const index = store.index('offlineDB');
+    return index.getAll()}).then(reviews => reviews.forEach(function(x){
+      var idOf = x.id;
+      delete x.offline;
+      delete x.id;
+      fetch(url, {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(x), // data can be `string` or {object}!
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }).then(response => { 
+        if (response.ok) {
+          response.json();
+          console.log(idOf);
+          dbPromise.then(db => {
+            const tx = db.transaction('revs', 'readwrite');
+            tx.objectStore('revs').delete(idOf);
+          return tx.complete;
 
-      });  
-      } else {
-        return Promise.reject('something went wrong!')
-      }
-    })
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+        });  
+        } else {
+          return Promise.reject('something went wrong!')
+        }
+      })
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
   }));
+}
+
+if (navigator.onLine === true)
+  {
+    console.log('Ta certo')
+  }
