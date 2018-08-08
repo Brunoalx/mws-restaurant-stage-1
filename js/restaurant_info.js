@@ -36,7 +36,7 @@ fetchRestaurantFromURL = (callback) => {
     DBHelper.fetchReviewsByRestId(id, (error, review) => {
 
       self.review = review;
-      console.log(review);
+      //console.log(review);
       if (!review) {
         console.error(error);
         return;
@@ -126,7 +126,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  * Create all reviews HTML and add them to the webpage.
  */
 fillReviewsHTML = (reviews = self.review) => {
-  console.log("Estou a ir ao fillReviewsHTML");
+  //console.log("Estou a ir ao fillReviewsHTML");
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
@@ -268,14 +268,14 @@ function addReview() {
     comments: comments, 
     offline: offline
   };
-  console.log(newReview);
+  //console.log(newReview);
   modal.style.display = "none";
   document.getElementById('reviewer').value='';
   document.getElementById('rating').value='';
   document.getElementById('comments').value='';
   checkIfOnline();
   getReviewToDb = (newReview) => {
-    console.log("meto ou não meto");
+    //console.log("meto ou não meto");
     dbPromise.then(db => {
       const tx = db.transaction('revs', 'readwrite');
       tx.objectStore('revs').put(newReview);
@@ -291,9 +291,9 @@ function addReview() {
 
   function checkIfOnline() {
     if(navigator.onLine) { // true|false
-      console.log('online');
+      //console.log('online');
     } else {
-      console.log('offline');
+      //console.log('offline');
       alert ("Not connected - The new review wont be sent to the server until the connection is re-established");
     }
   }
@@ -330,7 +330,7 @@ function SendReviewToServer() {
       }).then(response => { 
         if (response.ok) {
           response.json();
-          console.log(idOf);
+          //console.log(idOf);
           dbPromise.then(db => {
             const tx = db.transaction('revs', 'readwrite');
             tx.objectStore('revs').delete(idOf);

@@ -57,7 +57,7 @@ class DBHelper {
                 });
               return tx.complete;
               }); 
-              console.log(reviews);
+              //console.log(reviews);
               callback(null, reviews);
             } else { // Oops!. Got an error from server.
               const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -129,7 +129,7 @@ class DBHelper {
    * Fetch a reviews by Rest ID.
    */
   static fetchReviewsByRestId(id, callback) {
-    console.log(id);
+    //console.log(id);
     // fetch all reviews with proper error handling.
     DBHelper.fetchReviews(id, (error, reviews) => {
       if (error) {
@@ -138,7 +138,7 @@ class DBHelper {
         const review = reviews.filter(r => r.restaurant_id == id);
         
         if (review) { // Got the review
-          console.log(review);
+          //console.log(review);
           callback(null, review);
         } else { // Restaurant does not exist in the database
           callback('No Reviews', null);
@@ -159,7 +159,7 @@ class DBHelper {
       } else {
         const restaurant = restaurants.find(r => r.id == id);
         if (restaurant) { // Got the restaurant
-          console.log(restaurant);
+          //console.log(restaurant);
           callback(null, restaurant);
         } else { // Restaurant does not exist in the database
           callback('Restaurant does not exist', null);
