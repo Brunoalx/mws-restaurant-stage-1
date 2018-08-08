@@ -258,13 +258,13 @@ function addReview() {
   let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
   
-  dbPromise.then(db => {
+  /*dbPromise.then(db => {
     return db.transaction('revs')
     .objectStore('revs').count();
   }).then(num => numero = num+1000);
-  console.log(numero);
+  console.log(numero);*/
   let offline = 1;
-  const newReview = {id: numero, restaurant_id: restaurant_id, name: name, createdAt: createdAt, updatedAt: updatedAt, rating: rating, comments: comments, offline: offline};
+  const newReview = {id: createdAt, restaurant_id: restaurant_id, name: name, createdAt: createdAt, updatedAt: updatedAt, rating: rating, comments: comments, offline: offline};
   console.log(newReview);
   modal.style.display = "none";
   document.getElementById('reviewer').value='';
