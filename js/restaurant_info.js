@@ -254,17 +254,20 @@ function addReview() {
   let name = document.getElementById('reviewer').value;
   let d = new Date();
   let createdAt = d.getTime();
-  let updatedAt = d.getTime();
+  
   let rating =  parseInt(document.getElementById('rating').value);
   let comments = document.getElementById('comments').value;
-  
-  /*dbPromise.then(db => {
-    return db.transaction('revs')
-    .objectStore('revs').count();
-  }).then(num => numero = num+1000);
-  console.log(numero);*/
   let offline = 1;
-  const newReview = {id: createdAt, restaurant_id: restaurant_id, name: name, createdAt: createdAt, updatedAt: updatedAt, rating: rating, comments: comments, offline: offline};
+  const newReview = {
+    id: createdAt, 
+    restaurant_id: restaurant_id, 
+    name: name, 
+    createdAt: createdAt, 
+    updatedAt: createdAt, 
+    rating: rating, 
+    comments: comments, 
+    offline: offline
+  };
   console.log(newReview);
   modal.style.display = "none";
   document.getElementById('reviewer').value='';
@@ -280,9 +283,8 @@ function addReview() {
     });
   };
   getReviewToDb(newReview);
-  location.reload();
   SendReviewToServer();
-  
+  location.reload();
 }
 
 
@@ -302,6 +304,7 @@ window.addEventListener("online", onFunction);
 function onFunction() {
     alert ("Your browser is working online.");
     SendReviewToServer();
+    location.reload();
 }
 
 

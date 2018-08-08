@@ -40,7 +40,7 @@ class DBHelper {
       }).then(rev => {
         
         
-        if (navigator.onLine === true){//(rev === 0) { //Faz de conta que está sempre vazia. Reverter para === depois.
+        if (navigator.onLine === true ){//(rev === 0) { //Faz de conta que está sempre vazia. Reverter para === depois.
           
 
           let xhr = new XMLHttpRequest();
@@ -87,7 +87,7 @@ class DBHelper {
       return store.count()
       }).then(obj => {
         
-        if (obj === 0) { //Faz de conta que está sempre vazia. Reverter para === depois.
+        if (obj === 0) { 
           
 
           let xhr = new XMLHttpRequest();
