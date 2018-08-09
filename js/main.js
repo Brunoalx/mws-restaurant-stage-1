@@ -149,6 +149,10 @@ createRestaurantHTML = (restaurant) => {
   name.innerHTML = restaurant.name;
   li.append(name);
 
+  const is_favorite = document.createElement('p');
+  is_favorite.innerHTML = restaurant.is_favorite;
+  li.append(is_favorite);
+
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
