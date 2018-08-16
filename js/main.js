@@ -149,9 +149,47 @@ createRestaurantHTML = (restaurant) => {
   name.innerHTML = restaurant.name;
   li.append(name);
 
-  const is_favorite = document.createElement('p');
-  is_favorite.innerHTML = restaurant.is_favorite;
+
+
+  const is_favorite = document.createElement('button');//favorite-star
+  //is_favorite.innerHTML = restaurant.is_favorite;
+  let fav = restaurant.is_favorite;
+  //is_favorite.classList.add('fav_btn');
+
+  is_favorite.onclick = function(){
+    fav = !fav;
+    console.log(fav);
+    isFavoriteFunction(restaurant, fav);
+  }
+
+  //is_favorite.innerHTML = "&#x2605";//"☆";  Favorite
+  isFavoriteFunction = (restaurant, fav) => {
+    
+    console.log(fav);
+    if (fav === true){
+      console.log('favorito');
+      
+      is_favorite.style.background='#FFA500FF';
+      is_favorite.innerHTML = "&#x2605 Favorite";
+    } else {
+      console.log('n favorito');
+      is_favorite.innerHTML = "&#x2605";
+      is_favorite.style.background='';
+    }  
+  }
+  isFavoriteFunction(restaurant);
+  
+  /*isFavoriteFunction() {
+    this.style.color='#F4ED0AFF';
+    if (restarant.is_favorite = true)
+      this.style.background='#FFA500FF';
+      this.innerHTML = "&#x2605 Favorite";
+
+    console.log("mBotao");
+  };*/
   li.append(is_favorite);
+
+
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
@@ -168,6 +206,21 @@ createRestaurantHTML = (restaurant) => {
 
   return li
 }
+
+/**
+ * Favorite change Button
+ */
+isFavoriteFunction = (restaurant) => {
+  if (restaurant.is_favorite = false){
+    console.log('n favorito');
+    is_favorite.innerHTML = "&#x2605";
+  } else {
+    console.log('favorito');
+    is_favorite.style.background='#FFA500FF';
+    is_favorite.innerHTML = "&#x2605 Favorite";
+  }  
+}
+
 
 /**
  * Add markers for current restaurants to the map.
