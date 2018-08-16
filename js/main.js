@@ -152,18 +152,44 @@ createRestaurantHTML = (restaurant) => {
 
 
   const is_favorite = document.createElement('button');//favorite-star
-  //is_favorite.innerHTML = restaurant.is_favorite;
-  let fav = restaurant.is_favorite;
+  
+  if (restaurant.is_favorite === "true"){
+    console.log('favorito');
+    is_favorite.style.background='#FFA500FF';
+    is_favorite.innerHTML = "&#x2605 Favorite";
+    is_favorite.setAttribute('aria-label', 'unmark as favorite')
+  } else {
+    console.log('n favorito');
+    is_favorite.innerHTML = "&#x2605";
+    is_favorite.setAttribute('aria-label', 'mark as favorite')
+  }  
+  //is_favorite.innerHTML = "&#x2605";
   //is_favorite.classList.add('fav_btn');
-
   is_favorite.onclick = function(){
-    fav = !fav;
+    let fav = !restaurant.is_favorite;
+    changeFavoriteStatusInServer(restaurant.id, fav);
+    restaurant.is_favorite = ! restaurant.is_favorite;
+    //changeFavElementClass(is_favorite, restaurant.is_favorite);
+  };
+  //changeFavElementClass(is_favorite, restaurant.is_favorite);
+
+
+
+
+  //is_favorite.innerHTML = restaurant.is_favorite;
+    
+  //is_favorite.classList.add('fav_btn');
+  /*is_favorite.onclick = function(){
+    let fav = !restaurant.is_favorite;
+    restaurant.is_favorite = ! restaurant.is_favorite;
+    isFavoriteFunction( fav);
     console.log(fav);
-    isFavoriteFunction(restaurant, fav);
-  }
+    
+  }*/
+
 
   //is_favorite.innerHTML = "&#x2605";//"☆";  Favorite
-  isFavoriteFunction = (restaurant, fav) => {
+  /*isFavoriteFunction = (is_favorite, fav) => {
     
     console.log(fav);
     if (fav === true){
@@ -177,7 +203,9 @@ createRestaurantHTML = (restaurant) => {
       is_favorite.style.background='';
     }  
   }
-  isFavoriteFunction(restaurant);
+  isFavoriteFunction(restaurant);*/
+
+  
   
   /*isFavoriteFunction() {
     this.style.color='#F4ED0AFF';
@@ -210,16 +238,45 @@ createRestaurantHTML = (restaurant) => {
 /**
  * Favorite change Button
  */
-isFavoriteFunction = (restaurant) => {
+/*isFavoriteFunction = (restaurant) => {
   if (restaurant.is_favorite = false){
     console.log('n favorito');
     is_favorite.innerHTML = "&#x2605";
+
   } else {
     console.log('favorito');
     is_favorite.style.background='#FFA500FF';
     is_favorite.innerHTML = "&#x2605 Favorite";
   }  
-}
+}*/
+/*isFavoriteFunction = (restaurant) => {
+    
+    console.log(fav);
+    if (fav === true){
+      console.log('favorito');
+      
+      is_favorite.style.background='#FFA500FF';
+      is_favorite.innerHTML = "&#x2605 Favorite";
+    } else {
+      console.log('n favorito');
+      is_favorite.innerHTML = "&#x2605";
+      is_favorite.style.background='';
+    }  
+  }
+  isFavoriteFunction(restaurant);*/
+
+/*changeFavElementClass = (el, fav) => {
+  if (!fav) {
+    el.classList.remove('favorite_yes');
+    el.classList.add('favorite_no');
+    el.setAttribute('aria-label', 'mark as favorite');
+  } else {
+    console.log('toogle yes upd');
+    el.classList.remove('favorite_no');
+    el.classList.add('favorite_yes');
+    el.setAttribute('aria-label', 'remove as favorite');
+  }
+}*/
 
 
 /**
@@ -234,4 +291,13 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     });
     self.markers.push(marker);
   });
+}
+
+
+
+changeFavoriteStatusInServer = (restaurantId, isFavorite) => {
+  url = `http://localhost:1337/restaurants/${restaurantId}/?is_favorite=${isFavorite}`
+  fetch(url,{
+    method: 'PUT'
+  })
 }
