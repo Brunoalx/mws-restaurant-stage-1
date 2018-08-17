@@ -427,8 +427,5 @@ nav h1 a {
 }
 
 [aria-label = 'unmark as favorite']{
-  background : #FFA500FF
+  background : #FFA500FF;
 }
-/*[aria-label = 'mark as favorite']{
-  background : transparent;
-}*/
