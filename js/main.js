@@ -152,10 +152,10 @@ createRestaurantHTML = (restaurant) => {
 
 
   const is_favorite = document.createElement('button');//favorite-star
-  
+  console.log(restaurant.is_favorite);
   if (restaurant.is_favorite === "true"){
     console.log('favorito');
-    is_favorite.style.background='#FFA500FF';
+    //is_favorite.style.background='#FFA500FF';
     is_favorite.innerHTML = "&#x2605 Favorite";
     is_favorite.setAttribute('aria-label', 'unmark as favorite')
   } else {
@@ -170,6 +170,17 @@ createRestaurantHTML = (restaurant) => {
     changeFavoriteStatusInServer(restaurant.id, fav);
     restaurant.is_favorite = ! restaurant.is_favorite;
     //changeFavElementClass(is_favorite, restaurant.is_favorite);
+    console.log(restaurant.is_favorite);
+    if (restaurant.is_favorite === true){
+    console.log('favorito click');
+    //is_favorite.style.background='#FFA500FF';
+    is_favorite.innerHTML = "&#x2605 Favorite";
+    is_favorite.setAttribute('aria-label', 'unmark as favorite')
+  } else {
+    console.log('n favorito click');
+    is_favorite.innerHTML = "&#x2605";
+    is_favorite.setAttribute('aria-label', 'mark as favorite')
+  }  
   };
   //changeFavElementClass(is_favorite, restaurant.is_favorite);
 
@@ -300,4 +311,13 @@ changeFavoriteStatusInServer = (restaurantId, isFavorite) => {
   fetch(url,{
     method: 'PUT'
   })
+  dbPromise.then(db => {
+    const tx = db.transaction('objs', 'readwrite');
+    const store = tx.objectStore('objs');//.delete(idOf);
+    store.get(restaurantId).then(rest => {
+      rest.is_favorite = isFavorite;
+      store.put(rest);
+    })
+  return tx.complete;
+  });
 }

@@ -425,3 +425,10 @@ nav h1 a {
 #add-review-container{
   padding:20px;
 }
+
+[aria-label = 'unmark as favorite']{
+  background : #FFA500FF
+}
+/*[aria-label = 'mark as favorite']{
+  background : transparent;
+}*/
