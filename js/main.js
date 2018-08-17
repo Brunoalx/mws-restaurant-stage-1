@@ -151,10 +151,11 @@ createRestaurantHTML = (restaurant) => {
 
   const is_favorite = document.createElement('button');
   favoriteRestChange(restaurant, is_favorite);
-  is_favorite.onclick = function(){
-    let fav = !restaurant.is_favorite;
-    changeFavoriteStatusInServer(restaurant.id, fav);
+  is_favorite.onclick = () => {
+    //let fav = !restaurant.is_favorite;
     restaurant.is_favorite = ! restaurant.is_favorite;
+    changeFavoriteStatusInDbAndServer(restaurant.id, restaurant.is_favorite);
+    //restaurant.is_favorite = ! restaurant.is_favorite;
     favoriteRestChange(restaurant, is_favorite);
   };
   li.append(is_favorite);
@@ -192,20 +193,20 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 /**
  * Change Favorite status on server and indexedDb
  */
-changeFavoriteStatusInServer = (restaurantId, isFavorite) => {
-  url = `http://localhost:1337/restaurants/${restaurantId}/?is_favorite=${isFavorite}`
-  fetch(url,{
-    method: 'PUT'
-  })
+changeFavoriteStatusInDbAndServer = (restId, isFav) => {
   dbPromise.then(db => {
     const tx = db.transaction('objs', 'readwrite');
     const store = tx.objectStore('objs');//.delete(idOf);
-    store.get(restaurantId).then(rest => {
-      rest.is_favorite = isFavorite;
+    store.get(restId).then(rest => {
+      rest.is_favorite = isFav;
       store.put(rest);
     })
   return tx.complete;
   });
+  url = `http://localhost:1337/restaurants/${restId}/?is_favorite=${isFav}`
+  fetch(url,{
+    method: 'PUT'
+  })
 }
 
 /**
