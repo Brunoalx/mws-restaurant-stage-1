@@ -153,7 +153,8 @@ createRestaurantHTML = (restaurant) => {
 
   const is_favorite = document.createElement('button');//favorite-star
   console.log(restaurant.is_favorite);
-  if (restaurant.is_favorite === "true"){
+  favoriteRestChange(restaurant, is_favorite);
+  /*if (String(restaurant.is_favorite) === "true"){
     console.log('favorito');
     //is_favorite.style.background='#FFA500FF';
     is_favorite.innerHTML = "&#x2605 Favorite";
@@ -162,7 +163,7 @@ createRestaurantHTML = (restaurant) => {
     console.log('n favorito');
     is_favorite.innerHTML = "&#x2605";
     is_favorite.setAttribute('aria-label', 'mark as favorite')
-  }  
+  } */ 
   //is_favorite.innerHTML = "&#x2605";
   //is_favorite.classList.add('fav_btn');
   is_favorite.onclick = function(){
@@ -171,16 +172,17 @@ createRestaurantHTML = (restaurant) => {
     restaurant.is_favorite = ! restaurant.is_favorite;
     //changeFavElementClass(is_favorite, restaurant.is_favorite);
     console.log(restaurant.is_favorite);
-    if (restaurant.is_favorite === true){
-    console.log('favorito click');
-    //is_favorite.style.background='#FFA500FF';
-    is_favorite.innerHTML = "&#x2605 Favorite";
-    is_favorite.setAttribute('aria-label', 'unmark as favorite')
-  } else {
-    console.log('n favorito click');
-    is_favorite.innerHTML = "&#x2605";
-    is_favorite.setAttribute('aria-label', 'mark as favorite')
-  }  
+    favoriteRestChange(restaurant, is_favorite);
+    /*if (String(restaurant.is_favorite) === "true"){
+      console.log('favorito click');
+      //is_favorite.style.background='#FFA500FF';
+      is_favorite.innerHTML = "&#x2605 Favorite";
+      is_favorite.setAttribute('aria-label', 'unmark as favorite')
+    } else {
+      console.log('n favorito click');
+      is_favorite.innerHTML = "&#x2605";
+      is_favorite.setAttribute('aria-label', 'mark as favorite')
+    }  */
   };
   //changeFavElementClass(is_favorite, restaurant.is_favorite);
 
@@ -320,4 +322,17 @@ changeFavoriteStatusInServer = (restaurantId, isFavorite) => {
     })
   return tx.complete;
   });
+}
+
+favoriteRestChange = (restaurant, is_favorite) => {
+if (String(restaurant.is_favorite) === "true"){
+    console.log('favorito');
+    //is_favorite.style.background='#FFA500FF';
+    is_favorite.innerHTML = "&#x2605 Favorite";
+    is_favorite.setAttribute('aria-label', 'unmark as favorite')
+  } else {
+    console.log('n favorito');
+    is_favorite.innerHTML = "&#x2605";
+    is_favorite.setAttribute('aria-label', 'mark as favorite')
+  }  
 }
