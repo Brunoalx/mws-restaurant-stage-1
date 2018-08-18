@@ -4,6 +4,11 @@ let restaurants,
 var map
 var markers = []
 
+
+/*const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+observer.observe();*/
+
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -139,8 +144,9 @@ createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
   const image = document.createElement('img');
-  image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestMini(restaurant);
+  image.className = 'restaurant-img lazyload';
+  const v = DBHelper.imageUrlForRestMini(restaurant);
+  image.setAttribute("data-src", 'http://localhost:8000/'+v);
   image.alt = restaurant.name;
   li.append(image);
 
