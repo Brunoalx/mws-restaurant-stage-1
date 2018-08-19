@@ -4,11 +4,6 @@ let restaurants,
 var map
 var markers = []
 
-
-/*const observer = lozad(); // lazy loads elements with default selector as '.lozad'
-observer.observe();*/
-
-
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -16,6 +11,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
 });
+
+window.lazySizesConfig = window.lazySizesConfig || {};
+
+window.lazySizesConfig.expand = 0; //default 360-500
+lazySizesConfig. expFactor = 0; //default: 1.7
 
 /**
  * Fetch all neighborhoods and set their HTML.
@@ -158,10 +158,8 @@ createRestaurantHTML = (restaurant) => {
   const is_favorite = document.createElement('button');
   favoriteRestChange(restaurant, is_favorite);
   is_favorite.onclick = () => {
-    //let fav = !restaurant.is_favorite;
     restaurant.is_favorite = ! restaurant.is_favorite;
     changeFavoriteStatusInDbAndServer(restaurant.id, restaurant.is_favorite);
-    //restaurant.is_favorite = ! restaurant.is_favorite;
     favoriteRestChange(restaurant, is_favorite);
   };
   li.append(is_favorite);

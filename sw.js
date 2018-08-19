@@ -4,9 +4,9 @@ self.addEventListener('install', function(event){
 			return cache.addAll([
 				'/sw.js',
 				'/',
-				'/restaurant.html',
+				//'/restaurant.html',
 				'css/styles.css',
-				'img/1.webp',
+				/*'img/1.webp',
 				'img/2.webp',
 				'img/3.webp',
 				'img/4.webp',
@@ -15,7 +15,7 @@ self.addEventListener('install', function(event){
 				'img/7.webp',
 				'img/8.webp',
 				'img/9.webp',
-				'img/10.webp',
+				'img/10.webp',*/
 				'img/Restaurant.png',
 				'img_mini/1.webp',
 				'img_mini/2.webp',
@@ -27,7 +27,7 @@ self.addEventListener('install', function(event){
 				'img_mini/8.webp',
 				'img_mini/9.webp',
 				'img_mini/10.webp',
-				'img_half/1.webp',
+				/*'img_half/1.webp',
 				'img_half/2.webp',
 				'img_half/3.webp',
 				'img_half/4.webp',
@@ -36,10 +36,10 @@ self.addEventListener('install', function(event){
 				'img_half/7.webp',
 				'img_half/8.webp',
 				'img_half/9.webp',
-				'img_half/10.webp',
+				'img_half/10.webp',*/
 				'js/dbhelper.js',
 				'js/main.js',
-				'js/restaurant_info.js',
+				//'js/restaurant_info.js',
 				'idb/lib/idb.js',
 				'/manifest.json',				
 			]);

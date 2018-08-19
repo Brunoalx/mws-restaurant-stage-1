@@ -3,13 +3,16 @@
 
 <head>
   <meta name="theme-color" content="#317EFB"/>
-  <script src="idb/lib/idb.js" type="text/javascript"></script>
-  <script src="node_modules/lazysizes/lazysizes.min.js" async=""></script>
+  <script src="idb/lib/idb.js" type="text/javascript" ></script>
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="img/Restaurant.png">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="img/Restaurant.png" defer async>
+  <link rel="manifest" href="/manifest.json" defer async>
+  <link rel="stylesheet" src="/normalize-css.googlecode.com/svn/trunk/normalize.css" defer async>
+  <link rel="stylesheet" href="css/styles.css" defer async>
+  <script src="node_modules/lazysizes/lazysizes.min.js" defer async></script>
+  <!--<link rel="preload" href="js/map.js" as="script">-->
+
   <title>Restaurant Reviews</title>
 </head>
 
@@ -43,7 +46,7 @@
   </main>
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXfyXIf1JV9PoB9Me5nHgrXNqIrN5ssIc&libraries=places&callback=initMap"></script>
+  <script type="application/javascript" charset="utf-8" src="js/map.js"></script>
 
 
   <footer id="footer">
@@ -52,23 +55,11 @@
 
 </body>
 <script>
-  if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('sw.js');
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('sw.js');
+    });
   }
-
-  /*navigator.serviceWorker.register('sw.js').then(function(reg){
-    console.log('Yay!');
-  }).catch(function(err) {
-    console.log('Boo!')
-  });
-  
-  /*fetch('/foo').then(function(response){
-	return response.json();
-  }).then(function(data) {
-	console.log(data);
-  }).catch(function() {
-    console.log('It failed');
-  })*/
 </script>
 
 </html>

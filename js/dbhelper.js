@@ -15,7 +15,6 @@ const dbPromise = idb.open('restaurants-db', 2, upgradeDB => {
 });
 
 
-
 /**
  * Common database helper functions.
  */
@@ -278,7 +277,6 @@ class DBHelper {
     return (`/img_half/${restaurant.id}.webp`);
   }
   
-  
   static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({
       position: restaurant.latlng,
@@ -289,6 +287,4 @@ class DBHelper {
     );
     return marker;
   }
-
-
 }
