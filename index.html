@@ -46,7 +46,7 @@
   </main>
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-  <script type="application/javascript" charset="utf-8" src="js/map.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXfyXIf1JV9PoB9Me5nHgrXNqIrN5ssIc&libraries=places&callback=initMap"></script>
 
 
   <footer id="footer">
@@ -57,7 +57,7 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('/sw.js');
     });
   }
 </script>
