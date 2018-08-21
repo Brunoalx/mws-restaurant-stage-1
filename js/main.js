@@ -1,13 +1,15 @@
 let restaurants,
   neighborhoods,
   cuisines
-var map
+//var map
+var newMap
 var markers = []
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
+  initMap(); // added 
   fetchNeighborhoods();
   fetchCuisines();
 });
@@ -75,7 +77,26 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 /**
  * Initialize Google map, called from HTML.
  */
-window.initMap = () => {
+
+initMap = () => {
+  self.newMap = L.map('map', {
+        center: [40.722216, -73.987501],
+        zoom: 12,
+        scrollWheelZoom: false
+      });
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
+    mapboxToken: 'pk.eyJ1IjoiYnJ1bm9hbHgiLCJhIjoiY2psM3RyYTZoMXloOTNrczFjYnV1ZHpyNCJ9.BbOrRjqk-8jfPRztkinvdA',
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox.streets'
+  }).addTo(newMap);
+
+   updateRestaurants();
+}  
+
+/*window.initMap = () => {
   let loc = {
     lat: 40.722216,
     lng: -73.987501
@@ -86,7 +107,7 @@ window.initMap = () => {
     scrollwheel: false
   });
   updateRestaurants();
-}
+}*/
 
 /**
  * Update page and map for current restaurants.
@@ -186,13 +207,24 @@ createRestaurantHTML = (restaurant) => {
 addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
+    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
+    marker.on("click", onClick);
+    function onClick() {
+      window.location.href = marker.options.url;
+    }
+  });
+} 
+
+/*addMarkersToMap = (restaurants = self.restaurants) => {
+  restaurants.forEach(restaurant => {
+    // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
     google.maps.event.addListener(marker, 'click', () => {
       window.location.href = marker.url
     });
     self.markers.push(marker);
   });
-}
+}*/
 
 /**
  * Change Favorite status on server and indexedDb
