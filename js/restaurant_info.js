@@ -1,5 +1,4 @@
 let restaurant;
-//var map;
 var newMap;
 
 /**
@@ -34,22 +33,7 @@ initMap = () => {
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
     }
   });
-}  
-/*window.initMap = () => {
-  fetchRestaurantFromURL((error, restaurant) => {
-    if (error) { // Got an error!
-      console.error(error);
-    } else {
-      self.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: restaurant.latlng,
-        scrollwheel: false
-      });
-      fillBreadcrumb();
-      DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
-    }
-  });
-}*/
+}
 
 /**
  * Get current restaurant from page URL.
@@ -84,11 +68,6 @@ fetchRestaurantFromURL = (callback) => {
       fillRestaurantHTML();
       callback(null, restaurant)
     });
-    
-
-      
-      //callback(null, review)
-    
   }
 }
 
@@ -121,8 +100,6 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     }
 }
   
-  
-
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
@@ -219,8 +196,6 @@ createReviewHTML = (review) => {
   return li;
 }
 
-
-
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
@@ -275,8 +250,6 @@ window.onclick = function(event) {
     }
 }
 
-
-
 /**
  * Store new review
  */
@@ -299,6 +272,7 @@ function addReview() {
     comments: comments, 
     offline: offline
   };
+
   //console.log(newReview);
   modal.style.display = "none";
   document.getElementById('reviewer').value='';
@@ -317,8 +291,6 @@ function addReview() {
   SendReviewToServer();
   location.reload();
 }
-
-
 
   function checkIfOnline() {
     if(navigator.onLine) { // true|false
