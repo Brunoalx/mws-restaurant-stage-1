@@ -112,6 +112,7 @@ updateRestaurants = () => {
     if (error) { // Got an error!
       console.error(error);
     } else {
+      //console.log(restaurants);
       resetRestaurants(restaurants);
       fillRestaurantsHTML();
     }
@@ -128,7 +129,10 @@ resetRestaurants = (restaurants) => {
   ul.innerHTML = '';
 
   // Remove all map markers
-  self.markers.forEach(m => m.setMap(null));
+  //  self.markers.forEach(m => m.setMap(null));
+  if(self.markers){
+    self.markers.forEach(m => m.remove());
+  }
   self.markers = [];
   self.restaurants = restaurants;
 }
@@ -198,6 +202,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     function onClick() {
       window.location.href = marker.options.url;
     }
+    self.markers.push(marker);
   });
 } 
 
@@ -218,8 +223,7 @@ changeFavoriteStatusInDbAndServer = (restId, isFav) => {
   fetch(url,{
     method: 'PUT'
   })
-  .catch(error => console.error('Error:', error))
-  .then(response => console.log('Success:', response));
+  .catch(error => console.error('Error:', error));
 }
 
 /**
